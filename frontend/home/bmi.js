@@ -285,6 +285,38 @@ function updateSubscription(isPremium) {
   }
 }
 
+function updatePDFButton(isPremium) {
+  const pdfButton = document.getElementById("pdfDownloadBtn");
+
+  if (!pdfButton) return;
+
+  pdfButton.hidden = !isPremium;
+}
+
+function updateSubscription(isPremium) {
+  const subscriptionBtn = document.getElementById("subscriptionBtn");
+
+  if (!subscriptionBtn) return;
+
+  if (isPremium) {
+    // Premium user: show only golden crown
+    subscriptionBtn.innerHTML = `<span class="crown-icon premium-crown">♛</span>`;
+
+    subscriptionBtn.disabled = true;
+    subscriptionBtn.classList.add("premium-user");
+  } else {
+    // Regular user: show subscription button
+    subscriptionBtn.innerHTML = `
+      <span class="crown-icon">♛</span>
+      <span id="subscriptionText">Get Subscription</span>
+      <span class="arrow">→</span>
+    `;
+
+    subscriptionBtn.disabled = false;
+    subscriptionBtn.classList.remove("premium-user");
+  }
+}
+
 // ==========================================
 // EXISTING DASHBOARD BUTTONS
 // ==========================================
@@ -311,3 +343,5 @@ document.getElementById("subscriptionBtn")?.addEventListener("click", () => {
 
 updateTodayDate();
 fetchUserProfile();
+updateSubscription(user.isPremium);
+updatePDFButton(user.isPremium);
