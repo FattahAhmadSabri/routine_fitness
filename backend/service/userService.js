@@ -1,12 +1,20 @@
-const User = require("../model/userSchema");
-const { ForgotPassword } = require("../model/index");
-const { hashPassword, comparePassword } = require("../middleware/bcryptMiddleware");
+const { ForgotPassword, User, BMI } = require("../model/index");
+const {
+  hashPassword,
+  comparePassword,
+} = require("../middleware/bcryptMiddleware");
 const sendEmail = require("./emailService");
 const sequelize = require("../utils/dbConfig");
 
-const createUserService = async (name, email,age,gender, password) => {
+const createUserService = async (name, email, age, gender, password) => {
   const hashedPassword = await hashPassword(password);
-  const result = await User.create({ name, email,age,gender, password: hashedPassword });
+  const result = await User.create({
+    name,
+    email,
+    age,
+    gender,
+    password: hashedPassword,
+  });
   const data = result.toJSON();
   delete data.password;
   return data;
@@ -136,16 +144,34 @@ const updatePasswordService = async (resetId, password) => {
 };
 
 const getUserByIdService = async (id) => {
-  const response = await User.findByPk(id, {
-    attributes: ["id", "name", "email", "isPremium"],
+  return await User.findByPk(id, {
+    attributes: ["id", "name", "email", "age", "gender", "isPremium"],
+    include: [
+      {
+        model: BMI,
+        attributes: [
+          "id",
+          "name",
+          "age",
+          "weight",
+          "height",
+          "bmIndex",
+          "bmr",
+          "bfp",
+          "createdAt",
+        ],
+        separate: true,
+        limit: 1,
+        order: [["createdAt", "DESC"]],
+      },
+    ],
   });
-  return response;
 };
 
-const deleteUserByIdService= async (id)=>{
-    const response = await User.findByPk(id)
-    return response.destroy()
-}
+const deleteUserByIdService = async (id) => {
+  const response = await User.findByPk(id);
+  return response.destroy();
+};
 
 module.exports = {
   createUserService,
@@ -153,5 +179,5 @@ module.exports = {
   forgotPasswordService,
   updatePasswordService,
   getUserByIdService,
-  deleteUserByIdService
+  deleteUserByIdService,
 };

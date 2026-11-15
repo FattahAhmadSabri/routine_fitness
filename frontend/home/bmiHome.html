@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A personal health and fitness portfolio dashboard."
+    />
+    <meta name="theme-color" content="#f5f7f2" />
+    <title>Routine — Personal Health Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./bmi.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#" aria-label="Forma home">
+          <span class="brand-mark">F</span
+          ><span>ROUTINE<span class="brand-dot">.</span></span>
+        </a>
+
+        <!-- <div class="profile-mini">
+          <img
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=85"
+            alt="Profile portrait"
+          />
+          <div><strong>Alex Morgan</strong><span>Personal profile</span></div>
+          <button class="more-button" aria-label="More profile options">
+            •••
+          </button>
+        </div> -->
+        <div class="profile-mini">
+          <div class="user-avatar" id="userInitials">U</div>
+
+          <div>
+            <strong id="sidebarUserName">Loading...</strong>
+            <span id="sidebarUserEmail">Loading profile...</span>
+          </div>
+
+          <button class="more-button" aria-label="More profile options">
+            •••
+          </button>
+        </div>
+
+        <p class="nav-label">WORKSPACE</p>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a class="nav-item active" href="#overview"
+            ><span class="nav-icon">◫</span> Overview</a
+          >
+          <a class="nav-item" href="#health"
+            ><span class="nav-icon">♡</span> Health metrics</a
+          >
+          <a class="nav-item" href="#activity"
+            ><span class="nav-icon">↗</span> Activity</a
+          >
+          <a class="nav-item" href="#nutrition"
+            ><span class="nav-icon">◉</span> Nutrition</a
+          >
+          <a class="nav-item" href="#journal"
+            ><span class="nav-icon">▤</span> My journal</a
+          >
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="coach-card">
+            <span class="coach-spark">✳</span>
+            <strong>Small steps.<br />Big changes.</strong>
+            <p>Your consistency is your superpower. Keep showing up.</p>
+            <a href="#journal">View your progress <span>↗</span></a>
+          </div>
+          <a class="nav-item settings-link" href="#settings"
+            ><span class="nav-icon">⚙</span> Settings</a
+          >
+        </div>
+      </aside>
+
+      <main class="main-content" id="overview">
+        <header class="topbar">
+          <button
+            class="menu-toggle"
+            id="menuToggle"
+            aria-label="Open navigation"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+          <div class="breadcrumb">
+            My workspace <span>/</span> <strong>Overview</strong>
+          </div>
+          <div class="topbar-actions">
+            <span class="today-label" id="todayLabel">MONDAY, 13 NOVEMBER</span>
+            <button class="subscription-btn" id="subscriptionBtn">
+              <span class="crown-icon">♛</span>
+              <span id="subscriptionText">Get Subscription</span>
+              <span class="arrow">→</span>
+            </button>
+            <button
+              class="icon-button notification-button"
+              aria-label="Notifications"
+            >
+              ♧<i></i>
+            </button>
+            <button class="avatar-button" aria-label="Open profile">
+              <span id="topbarInitials">U</span>
+            </button>
+            <!-- <button class="avatar-button" aria-label="Open profile">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=85"
+                alt=""
+              />
+            </button> -->
+          </div>
+        </header>
+
+        <section class="welcome-row">
+          <div>
+            <p class="eyebrow">YOUR HEALTH, IN FOCUS</p>
+            <h1>
+              <span id="greetingText">Good morning</span>,
+              <span id="dashboardUserName">there</span>
+              <span class="wave">✳</span>
+            </h1>
+            <p class="welcome-copy">
+              You're building a stronger version of yourself. Here's your
+              snapshot for today.
+            </p>
+          </div>
+          <button class="primary-button" id="logWorkout">
+            <span>＋</span> Log activity
+          </button>
+        </section>
+
+        <section class="hero-grid">
+          <article class="hero-card">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+              <span class="hero-tag"
+                ><span></span> YOUR PERSONAL HEALTH PORTFOLIO</span
+              >
+              <h2>Progress is<br /><em>personal.</em></h2>
+              <p>
+                Not chasing perfect. Just getting better, one day at a time.
+              </p>
+              <a href="#journal" class="hero-link"
+                >Explore your journey <span>↗</span></a
+              >
+            </div>
+            <div class="hero-note">
+              <span>01</span>
+              <div>
+                <strong>Consistency over intensity</strong
+                ><small>Your best investment is showing up.</small>
+              </div>
+            </div>
+          </article>
+
+          <article class="readiness-card">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">DAILY READINESS</p>
+                <h3>You're looking good.</h3>
+              </div>
+              <span class="status-pill">On track</span>
+            </div>
+            <div class="readiness-score">
+              <div class="score-ring">
+                <div><strong>86</strong><small>/ 100</small></div>
+              </div>
+              <div class="score-copy">
+                <strong>Ready to move</strong>
+                <p>
+                  Your recovery looks solid. A moderate-to-intense session could
+                  fit well today.
+                </p>
+              </div>
+            </div>
+            <div class="readiness-divider"></div>
+            <div class="readiness-footer">
+              <span>RECOVERY STATUS</span><strong><i></i> Good recovery</strong>
+            </div>
+          </article>
+        </section>
+
+        <section class="section-block" id="health">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">THE BIG PICTURE</p>
+              <h2>Your health at a glance</h2>
+            </div>
+            <a class="text-link" href="#health"
+              >View all metrics <span>↗</span></a
+            >
+          </div>
+          <div class="metric-grid">
+            <article class="metric-card">
+              <div class="metric-top">
+                <span class="metric-icon heart">♡</span
+                ><span class="trend positive">↗ 4.2%</span>
+              </div>
+              <p>Resting heart rate</p>
+              <div class="metric-value">58 <small>bpm</small></div>
+              <div class="mini-chart heart-chart">
+                <span></span><span></span><span></span><span></span><span></span
+                ><span></span><span></span><span></span><span></span
+                ><span></span><span></span><span></span>
+              </div>
+              <small class="metric-foot">↓ 3 bpm from last month</small>
+            </article>
+
+            <article class="metric-card">
+              <div class="metric-top">
+                <span class="metric-icon body">◈</span>
+                <span class="trend positive" id="bmiCategory">Loading...</span>
+              </div>
+
+              <p>Body mass index</p>
+
+              <div class="metric-value">
+                <span id="bmiValue">--</span>
+                <small>BMI</small>
+              </div>
+
+              <div class="bmi-scale">
+                <span class="scale-marker" id="bmiMarker"></span>
+                <i></i><i></i><i></i><i></i>
+              </div>
+
+              <small class="metric-foot" id="bmiFoot">
+                Loading BMI data...
+              </small>
+            </article>
+
+            <article class="metric-card">
+              <div class="metric-top">
+                <span class="metric-icon water">◌</span
+                ><span class="trend neutral">3.2 / 3.0 L</span>
+              </div>
+              <p>Daily hydration</p>
+              <div class="metric-value">2.1 <small>litres</small></div>
+              <div class="water-track"><span></span></div>
+              <small class="metric-foot">70% of your daily goal</small>
+            </article>
+          </div>
+
+          <!-- BMR Card -->
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-label">Basal Metabolic Rate</span>
+              <span class="metric-icon">🔥</span>
+            </div>
+
+            <div class="metric-value">
+              <span id="bmrValue">--</span>
+              <small>kcal/day</small>
+            </div>
+
+            <p class="metric-foot" id="bmrFoot">
+              Daily calories burned at rest
+            </p>
+          </div>
+
+          <!-- BFP Card -->
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-label">Body Fat Percentage</span>
+              <span class="metric-icon">⚖️</span>
+            </div>
+
+            <div class="metric-value">
+              <span id="bfpValue">--</span>
+              <small>%</small>
+            </div>
+
+            <p class="metric-foot" id="bfpFoot">
+              Your estimated body fat percentage
+            </p>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel activity-panel" id="activity">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">MOVE WITH PURPOSE</p>
+                <h2>Activity overview</h2>
+              </div>
+              <button class="select-button" id="activityPeriod">
+                This week <span>⌄</span>
+              </button>
+            </div>
+            <div class="activity-summary">
+              <div><strong>8,420</strong><span>steps today</span></div>
+              <div class="goal-progress">
+                <div class="goal-ring">
+                  <div><strong>84%</strong></div>
+                </div>
+                <span>Daily goal</span>
+              </div>
+            </div>
+            <div class="weekly-chart" aria-label="Weekly steps chart">
+              <div class="chart-y-labels">
+                <span>12k</span><span>8k</span><span>4k</span><span>0</span>
+              </div>
+              <div class="chart-bars">
+                <div class="bar-column">
+                  <div class="bar" style="--bar: 55%"></div>
+                  <span>M</span>
+                </div>
+                <div class="bar-column">
+                  <div class="bar" style="--bar: 76%"></div>
+                  <span>T</span>
+                </div>
+                <div class="bar-column">
+                  <div class="bar" style="--bar: 63%"></div>
+                  <span>W</span>
+                </div>
+                <div class="bar-column">
+                  <div class="bar" style="--bar: 91%"></div>
+                  <span>T</span>
+                </div>
+                <div class="bar-column">
+                  <div class="bar active" style="--bar: 70%"></div>
+                  <span>F</span>
+                </div>
+                <div class="bar-column">
+                  <div class="bar" style="--bar: 42%"></div>
+                  <span>S</span>
+                </div>
+                <div class="bar-column">
+                  <div class="bar future" style="--bar: 22%"></div>
+                  <span>S</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity-legend">
+              <span><i class="legend-dot"></i> Steps</span
+              ><span>Weekly average <strong>7,960</strong></span>
+            </div>
+          </article>
+
+          <article class="panel workout-panel">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">TODAY'S PLAN</p>
+                <h2>Keep your rhythm</h2>
+              </div>
+              <span class="tiny-more">•••</span>
+            </div>
+            <div class="workout-feature">
+              <img
+                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=500&q=85"
+                alt="Modern gym interior"
+              />
+              <div class="workout-image-overlay"></div>
+              <span class="workout-label">STRENGTH · DAY 04</span>
+              <div class="workout-image-title">
+                <strong>Upper body<br />power</strong><span>↗</span>
+              </div>
+            </div>
+            <div class="workout-details">
+              <div><span>◷</span> 45 min</div>
+              <div><span>⌁</span> Intermediate</div>
+              <div><span>⚡</span> 320 kcal</div>
+            </div>
+            <button class="outline-button" id="workoutButton">
+              View workout <span>↗</span>
+            </button>
+          </article>
+        </section>
+
+        <section class="content-grid lower-grid">
+          <article class="panel nutrition-panel" id="nutrition">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">FUEL YOUR BODY</p>
+                <h2>Nutrition today</h2>
+              </div>
+              <a class="text-link" href="#nutrition">Details ↗</a>
+            </div>
+            <div class="nutrition-layout">
+              <div class="calorie-ring">
+                <div><strong>1,480</strong><small>kcal eaten</small></div>
+              </div>
+              <div class="calorie-copy">
+                <span>Daily target</span
+                ><strong>2,200 <small>kcal</small></strong>
+                <p>720 kcal remaining</p>
+                <div class="calorie-track"><i></i></div>
+              </div>
+            </div>
+            <div class="macro-list">
+              <div>
+                <span class="macro-name"><i class="protein"></i> Protein</span
+                ><strong>92 <small>/ 130g</small></strong>
+                <div class="macro-track"><i style="--progress: 71%"></i></div>
+              </div>
+              <div>
+                <span class="macro-name"><i class="carbs"></i> Carbs</span
+                ><strong>148 <small>/ 220g</small></strong>
+                <div class="macro-track"><i style="--progress: 67%"></i></div>
+              </div>
+              <div>
+                <span class="macro-name"><i class="fats"></i> Fats</span
+                ><strong>48 <small>/ 70g</small></strong>
+                <div class="macro-track"><i style="--progress: 69%"></i></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel journal-panel" id="journal">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">REFLECT & GROW</p>
+                <h2>Recent highlights</h2>
+              </div>
+              <a class="text-link" href="#journal">Journal ↗</a>
+            </div>
+            <div class="journal-entry">
+              <span class="journal-date">TODAY <small>08:15 AM</small></span>
+              <div>
+                <strong>Morning run completed</strong>
+                <p>5.2 km · Felt strong and steady throughout.</p>
+              </div>
+              <span class="entry-check">✓</span>
+            </div>
+            <div class="journal-entry">
+              <span class="journal-date"
+                >YESTERDAY <small>07:40 PM</small></span
+              >
+              <div>
+                <strong>Strength session</strong>
+                <p>45 min · Added 2.5 kg to your bench press.</p>
+              </div>
+              <span class="entry-check">✓</span>
+            </div>
+            <div class="journal-entry">
+              <span class="journal-date">NOV 11 <small>09:10 PM</small></span>
+              <div>
+                <strong>Sleep routine win</strong>
+                <p>In bed before 10:30 PM. Three nights in a row.</p>
+              </div>
+              <span class="entry-check">✓</span>
+            </div>
+          </article>
+        </section>
+
+        <footer class="footer">
+          <span>© 2025 ROUTINE HEALTH</span
+          ><span>Built around progress, not perfection.</span
+          ><a href="#overview">Back to top ↑</a>
+        </footer>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <script src="../config/api.js"></script>
+    <script src="./bmi.js"></script>
+  </body>
+</html>

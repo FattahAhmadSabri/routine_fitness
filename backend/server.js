@@ -3,12 +3,17 @@ const cors = require("cors");
 const app = express();
 
 const env = require("dotenv");
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "http://127.0.0.1:5500",
+    credentials: true,
+  }),
+);
 env.config();
 const port = process.env.PORT;
 app.use(express.json());
 const userRoute = require("./routes/userRoute");
-const bmiRoute = require("./routes/bmiRoute")
+const bmiRoute = require("./routes/bmiRoute");
 const sequelize = require("./utils/dbConfig");
 app.use("/api", userRoute);
 app.use("/api", bmiRoute);

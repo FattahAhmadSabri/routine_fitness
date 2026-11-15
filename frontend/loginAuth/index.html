@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description" content="Securely sign in to your account." />
+
+    <title>Login | Nova</title>
+
+    <link rel="stylesheet" href="index.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <main class="login-container">
+      <section class="login-card">
+        <div class="logo">N<span>.</span></div>
+
+        <div class="heading">
+          <h1>Welcome back</h1>
+          <p>Enter your credentials to access your account.</p>
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email address</label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="name@example.com"
+              autocomplete="username"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <div class="password-label">
+              <label for="password">Password</label>
+
+              <a href="forgot-password.html"> Forgot password? </a>
+            </div>
+
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              />
+
+              <button
+                type="button"
+                id="togglePassword"
+                aria-label="Show password"
+              >
+                Show
+              </button>
+            </div>
+          </div>
+
+          <div class="remember-row">
+            <label>
+              <input type="checkbox" id="remember" />
+              Remember me
+            </label>
+          </div>
+
+          <button type="submit" id="loginBtn" class="login-btn">
+            <span id="btnText">Sign in</span>
+            <span id="loader" class="loader hidden"></span>
+          </button>
+
+          <p id="message" role="alert" aria-live="polite"></p>
+        </form>
+
+        <div class="divider">
+          <span>OR</span>
+        </div>
+
+        <button type="button" class="google-btn" id="googleLogin">
+          Continue with Google
+        </button>
+
+        <p class="signup-text">
+          Don't have an account?
+          <a href="./register.html">Create account</a>
+        </p>
+      </section>
+
+      <footer class="footer-text">© 2026 Nova. All rights reserved.</footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <script src="../config/api.js"></script>
+    <script src="./index.js"></script>
+  </body>
+</html>

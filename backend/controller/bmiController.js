@@ -33,7 +33,8 @@ const createBmi = async (req, res) => {
             age: user.age,
             gender: user.gender,
             weight: req.body.weight,
-            height: req.body.height
+            height: req.body.height,
+            userId : userId
         };
 
         const newBMI = await createBmiService(bmiData);

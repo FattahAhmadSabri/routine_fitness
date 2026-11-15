@@ -4,7 +4,8 @@ const {
   forgotPasswordService,
   updatePasswordService,
   getUserByIdService,
-  deleteUserByIdService
+  deleteUserByIdService,
+ 
 } = require("../service/userService");
 const { generateToken, verifyToken } = require("../utils/jwtConfig");
 const {
@@ -101,6 +102,8 @@ const deleteUserController = async (req, res) => {
     });
   }
 };
+
+
 
 module.exports = {
   createUserController,

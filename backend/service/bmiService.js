@@ -1,10 +1,9 @@
-const {BMI} = require("../model/index");
+const { BMI, User } = require("../model/index");
 const { Op } = require("sequelize");
 
 const createBmiService = async (data) => {
-
-  const { name, age, weight, height, gender } = data;
-
+  const { name, age, weight, height, gender, userId } = data;
+  
   if (
     !age ||
     age <= 0 ||
@@ -40,6 +39,7 @@ const createBmiService = async (data) => {
     bmIndex,
     bmr,
     bfp,
+    UserId: userId,
   });
 
   return newBMI;
