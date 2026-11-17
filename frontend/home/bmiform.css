@@ -1,0 +1,138 @@
+.bmi-form-card {
+  max-width: 520px;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #e8ebe5;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(30, 50, 30, 0.05);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.form-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.form-eyebrow {
+  color: #789477;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.form-heading h2 {
+  margin: 8px 0;
+  color: #26352b;
+  font-family: 'Manrope', sans-serif;
+  font-size: 21px;
+}
+
+.form-heading p {
+  margin: 0;
+  color: #89918a;
+  font-size: 13px;
+}
+
+.form-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: #eff5ed;
+  color: #628365;
+  border-radius: 14px;
+  font-size: 23px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 9px;
+  color: #354239;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.height-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.height-inputs .input-wrapper {
+  min-width: 0;
+}
+.input-wrapper:focus-within {
+  border-color: #789477;
+  box-shadow: 0 0 0 3px rgba(120, 148, 119, 0.12);
+}
+
+.input-wrapper input {
+  width: 100%;
+  height: 50px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #26352b;
+  font-size: 15px;
+}
+
+.input-wrapper span {
+  color: #929b92;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.bmi-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin: 25px 0;
+  padding: 20px;
+  background: #f3f7f1;
+  border-radius: 14px;
+}
+
+.bmi-preview span {
+  color: #7c887c;
+  font-size: 12px;
+}
+
+.bmi-preview strong {
+  color: #344f36;
+  font-family: 'Manrope', sans-serif;
+  font-size: 36px;
+}
+
+.bmi-preview small {
+  color: #68866a;
+  font-weight: 600;
+}
+
+.save-bmi-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #344f36;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.save-bmi-btn:hover {
+  background: #263d29;
+  transform: translateY(-1px);
+}
+
+.save-bmi-btn span {
+  margin-left: 8px;
+}

@@ -1,5 +1,6 @@
 const sequelize = require("../utils/dbConfig");
 const { DataTypes } = require("sequelize");
+
 const Payment = sequelize.define("Payment", {
   id: {
     type: DataTypes.UUID,
@@ -11,6 +12,11 @@ const Payment = sequelize.define("Payment", {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+  },
+
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: false,
   },
 
   amount: {

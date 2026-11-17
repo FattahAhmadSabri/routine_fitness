@@ -1,22 +1,27 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
 
 const env = require("dotenv");
+env.config();
+const app = express();
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://127.0.0.1:5500",
+    origin: [
+      "http://localhost:5500",
+      "http://127.0.0.1:5500",
+    ],
     credentials: true,
-  }),
+  })
 );
-env.config();
 const port = process.env.PORT;
 app.use(express.json());
 const userRoute = require("./routes/userRoute");
 const bmiRoute = require("./routes/bmiRoute");
+const paymentRoute = require("./routes/paymentRoute");
 const sequelize = require("./utils/dbConfig");
 app.use("/api", userRoute);
 app.use("/api", bmiRoute);
+app.use("/api", paymentRoute);
 app.get("/check", (req, res) => {
   res.send("health care server working");
 });

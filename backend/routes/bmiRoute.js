@@ -18,7 +18,7 @@ router.get("/all",authMiddleware, getBMI);
 router.get("/:id",authMiddleware, getBMIById);
 router.post("/sort", sortData);
 router.post("/sort-value", sortValue);
-router.post("/generate-pdf", generatePDF);
+router.post("/bmi/generate-pdf", generatePDF);
 router.post("/generate-csv", generateCsv);
 
 module.exports = router;

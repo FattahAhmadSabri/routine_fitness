@@ -10,8 +10,311 @@
   --radius: 18px;
   --shadow: 0 8px 30px rgba(31, 52, 40, 0.045);
 }
-* {
+/* * {
   box-sizing: border-box;
+} */
+
+.premium-bmi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border: 1px solid #344f36;
+  border-radius: 12px;
+  background: #344f36;
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.premium-bmi-btn:hover {
+  background: #263d29;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(52, 79, 54, 0.18);
+}
+
+.btn-icon {
+  font-size: 19px;
+  line-height: 1;
+}
+
+.premium-bmi-btn[hidden] {
+  display: none;
+}
+
+.premium-tag {
+  padding: 3px 7px;
+  border-radius: 5px;
+  background: #dce9c8;
+  color: #344f36;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.premium-bmi-btn[hidden] {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .premium-bmi-btn {
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+}
+
+/* ===== Hero row: give the clock more width ===== */
+.main-content .hero-grid {
+  grid-template-columns: minmax(0, 1fr) 320px; /* clock column is now a fixed, narrow width */
+  gap: 8px; /* was 17px */
+  align-items: stretch;
+}
+@media (max-width: 1100px) {
+  .main-content .hero-grid {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+}
+@media (max-width: 860px) {
+  .main-content .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* ===== Gym clock / rest timer ===== */
+.main-content .clock-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0; /* removes the side padding that was adding extra gap */
+  background: var(--bg); /* matches body background */
+  border: 0;
+  box-shadow: none;
+}
+
+.gym-clock {
+  --gc-plate: #8b20c4;
+  --gc-plate-dark: #5610ac;
+  --gc-chalk: #034902;
+  --gc-steel-dark: #4b5056;
+  --gc-signal: #ffc400;
+  --gc-btn: #1c1c1e;
+  --gc-btn-text: #eff5ee;
+  font-family: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+
+  /* dial on top, timers below */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 0;
+  flex: 1;
+  justify-content: center;
+}
+
+.gym-clock .gc-name {
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: 7px;
+  fill: #ffd700;
+  stroke: #8f141d;
+  stroke-width: 0.8px;
+  paint-order: stroke fill;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.gym-clock * {
+  box-sizing: border-box;
+}
+
+/* Bigger dial: change 360px to taste */
+.gc-face {
+  width: min(100%, 300px);
+}
+.gc-side {
+  width: 100%;
+  max-width: 460px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.gym-clock .plate-wrap {
+  transform-origin: 50% 50%;
+}
+.gym-clock .plate-wrap.thud {
+  animation: gc-thud 0.35s ease-out;
+}
+.gym-clock .plate-wrap.done {
+  animation: gc-pump 0.5s ease-in-out 6;
+}
+@keyframes gc-thud {
+  0% {
+    transform: scale(1.025);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes gc-pump {
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.gym-clock svg {
+  display: block;
+}
+.gc-face svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25));
+}
+
+.gym-clock .num {
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 38px;
+  fill: var(--gc-chalk);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.gym-clock .gc-rim {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  fill: rgba(255, 255, 255, 0.55);
+}
+.gym-clock .gc-name {
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: 7px;
+  fill: var(--gc-chalk);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.gym-clock .gc-brand {
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 3px;
+  fill: rgba(255, 255, 255, 0.8);
+  text-anchor: middle;
+}
+
+/* Timer readout below the dial */
+.gc-digital {
+  font-weight: 800;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: #1c1c1e;
+}
+.gc-digital.resting {
+  color: var(--gc-plate);
+}
+.gc-msg {
+  margin: 6px 0 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  opacity: 0.75;
+}
+
+/* ECG line hidden to keep the card compact. Remove this rule to show it. */
+.gc-ecg {
+  display: none;
+  width: 100%;
+  height: 30px;
+  margin: 10px 0 4px;
+  overflow: hidden;
+}
+.gc-ecg path {
+  fill: none;
+  stroke: var(--gc-plate);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.gc-ecg .scroll {
+  animation: gc-ecg 1.6s linear infinite;
+}
+@keyframes gc-ecg {
+  to {
+    transform: translateX(-120px);
+  }
+}
+
+.gc-controls {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.gc-controls button {
+  font:
+    800 1.1rem "Barlow Condensed",
+    "Arial Narrow",
+    Impact,
+    sans-serif;
+  letter-spacing: 0.06em;
+  padding: 9px 12px;
+  min-width: 64px;
+  background: var(--gc-btn);
+  color: var(--gc-btn-text);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--gc-steel-dark);
+  transition:
+    transform 0.08s,
+    box-shadow 0.08s;
+}
+.gc-controls button[hidden] {
+  display: none;
+}
+.gc-controls button:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--gc-steel-dark);
+}
+.gc-controls button.stop {
+  background: var(--gc-plate);
+  color: #fff;
+}
+.gc-controls button:focus-visible {
+  outline: 3px solid var(--gc-signal);
+  outline-offset: 3px;
+}
+
+.gc-sets {
+  margin-top: 12px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+.gc-sets b {
+  color: var(--gc-plate);
+  font-size: 1.5rem;
+}
+
+@media (max-width: 860px) {
+  .gc-face {
+    width: min(100%, 320px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gc-ecg .scroll,
+  .gym-clock .plate-wrap {
+    animation: none !important;
+  }
 }
 
 .subscription-btn {
@@ -356,12 +659,12 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: end;
-  padding: 35px 0 25px;
+  padding: 25px 0 20px;
 }
 .welcome-row h1 {
-  margin: 8px 0 6px;
+  margin: 4px 0 4px;
   font:
-    800 clamp(25px, 3vw, 34px) Manrope,
+    800 clamp(10px, 3vw, 25px) Manrope,
     sans-serif;
   letter-spacing: -1.5px;
 }

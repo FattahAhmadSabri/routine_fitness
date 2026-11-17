@@ -90,9 +90,20 @@
           >
             ☰
           </button>
-          <div class="breadcrumb">
-            My workspace <span>/</span> <strong>Overview</strong>
-          </div>
+          <section class="welcome-row">
+            <div>
+              <!-- <p class="eyebrow">YOUR HEALTH, IN FOCUS</p> -->
+              <h1>
+                <span id="greetingText">Good morning</span>,
+                <span id="dashboardUserName">there</span>
+                <span class="wave">✳</span>
+              </h1>
+              <p class="welcome-copy">
+                You're building a stronger version of yourself. Here's your
+                snapshot for today.
+              </p>
+            </div>
+          </section>
           <div class="topbar-actions">
             <span class="today-label" id="todayLabel">MONDAY, 13 NOVEMBER</span>
 
@@ -102,11 +113,29 @@
               <span class="pdf-badge">PDF</span>
             </button>
 
-            <button class="subscription-btn" id="subscriptionBtn">
+            <button
+              class="subscription-btn"
+              id="subscriptionBtn"
+              onclick="window.location.href = '../payment/payment.html'"
+            >
               <span class="crown-icon">♛</span>
               <span id="subscriptionText">Get Subscription</span>
               <span class="arrow">→</span>
             </button>
+
+            <div class="section-heading">
+              <button
+                class="premium-bmi-btn"
+                id="addBmiBtn"
+                hidden
+                onclick="window.location.href = './bmiform.html'"
+              >
+                <span class="btn-icon">＋</span>
+                <span>Update BMI</span>
+                <span class="premium-tag">PRO</span>
+              </button>
+            </div>
+
             <button
               class="icon-button notification-button"
               aria-label="Notifications"
@@ -125,23 +154,9 @@
           </div>
         </header>
 
-        <section class="welcome-row">
-          <div>
-            <p class="eyebrow">YOUR HEALTH, IN FOCUS</p>
-            <h1>
-              <span id="greetingText">Good morning</span>,
-              <span id="dashboardUserName">there</span>
-              <span class="wave">✳</span>
-            </h1>
-            <p class="welcome-copy">
-              You're building a stronger version of yourself. Here's your
-              snapshot for today.
-            </p>
-          </div>
-          <button class="primary-button" id="logWorkout">
-            <span>＋</span> Log activity
-          </button>
-        </section>
+        <!-- <button class="primary-button" id="logWorkout">
+          <span>＋</span> Log activity
+        </button> -->
 
         <section class="hero-grid">
           <article class="hero-card">
@@ -165,31 +180,209 @@
                 ><small>Your best investment is showing up.</small>
               </div>
             </div>
+            <!-- BMR Card -->
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-label">Basal Metabolic Rate</span>
+                <span class="metric-icon">🔥</span>
+              </div>
+
+              <div class="metric-value">
+                <span id="bmrValue">--</span>
+                <small>kcal/day</small>
+              </div>
+
+              <p class="metric-foot" id="bmrFoot">
+                Daily calories burned at rest
+              </p>
+            </div>
+
+            <!-- BFP Card -->
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-label">Body Fat Percentage</span>
+                <span class="metric-icon">⚖️</span>
+              </div>
+
+              <div class="metric-value">
+                <span id="bfpValue">--</span>
+                <small>%</small>
+              </div>
+
+              <p class="metric-foot" id="bfpFoot">
+                Your estimated body fat percentage
+              </p>
+            </div>
           </article>
 
-          <article class="readiness-card">
-            <div class="card-heading">
-              <div>
-                <p class="eyebrow">DAILY READINESS</p>
-                <h3>You're looking good.</h3>
+          <article class="panel gc-panel clock-card" id="timer">
+            <div class="card-heading"></div>
+
+            <div class="gym-clock" id="gymClock">
+              <div class="gc-face">
+                <div class="plate-wrap" id="plateWrap">
+                  <svg
+                    viewBox="0 0 400 400"
+                    role="img"
+                    aria-label="Routine analog clock"
+                  >
+                    <defs>
+                      <radialGradient id="face" cx="50%" cy="40%" r="70%">
+                        <stop offset="0" stop-color="#d42a35" />
+                        <stop offset="1" stop-color="#a81822" />
+                      </radialGradient>
+                      <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#d5d9dd" />
+                        <stop offset="1" stop-color="#6b7178" />
+                      </linearGradient>
+                      <path
+                        id="rimPath"
+                        d="M200,200 m-179,0 a179,179 0 1,1 358,0 a179,179 0 1,1 -358,0"
+                      />
+                    </defs>
+
+                    <circle
+                      cx="200"
+                      cy="200"
+                      r="196"
+                      fill="var(--gc-plate-dark)"
+                    />
+                    <circle
+                      cx="200"
+                      cy="200"
+                      r="191"
+                      fill="none"
+                      stroke="rgba(0,0,0,.45)"
+                      stroke-width="6"
+                      stroke-dasharray="2 4"
+                    />
+                    <circle cx="200" cy="200" r="186" fill="var(--gc-plate)" />
+                    <circle cx="200" cy="200" r="172" fill="url(#face)" />
+                    <circle
+                      cx="200"
+                      cy="200"
+                      r="172"
+                      fill="none"
+                      stroke="rgba(0,0,0,.25)"
+                      stroke-width="2"
+                    />
+
+                    <text class="gc-rim">
+                      <textPath href="#rimPath" startOffset="0">
+                        20 KG • 44 LB • NO EXCUSES • 20 KG • 44 LB • NO EXCUSES
+                        • 20 KG • 44 LB • NO EXCUSES •
+                      </textPath>
+                    </text>
+
+                    <circle
+                      id="ring"
+                      cx="200"
+                      cy="200"
+                      r="181"
+                      fill="none"
+                      stroke="var(--gc-signal)"
+                      stroke-width="5"
+                      stroke-linecap="round"
+                      transform="rotate(-90 200 200)"
+                      stroke-dasharray="1137.3"
+                      stroke-dashoffset="1137.3"
+                      opacity="0"
+                    />
+
+                    <g id="ticks"></g>
+                    <g id="nums"></g>
+                    <text class="gc-name" x="200" y="150">ROUTINE</text>
+                    <text class="gc-brand" x="200" y="262">
+                      LIFT • EAT • REPEAT
+                    </text>
+
+                    <g id="hHand">
+                      <rect
+                        x="-5"
+                        y="-92"
+                        width="10"
+                        height="112"
+                        rx="3"
+                        fill="var(--gc-chalk)"
+                      />
+                      <rect
+                        x="-12"
+                        y="-98"
+                        width="24"
+                        height="9"
+                        rx="2"
+                        fill="var(--gc-chalk)"
+                      />
+                      <rect
+                        x="-9"
+                        y="-108"
+                        width="18"
+                        height="8"
+                        rx="2"
+                        fill="var(--gc-chalk)"
+                      />
+                    </g>
+                    <g id="mHand">
+                      <rect
+                        x="-3.5"
+                        y="-138"
+                        width="7"
+                        height="158"
+                        rx="3"
+                        fill="var(--gc-chalk)"
+                      />
+                      <rect
+                        x="-9"
+                        y="-144"
+                        width="18"
+                        height="8"
+                        rx="2"
+                        fill="var(--gc-chalk)"
+                      />
+                    </g>
+                    <g id="sHand">
+                      <rect
+                        x="-1.5"
+                        y="-150"
+                        width="3"
+                        height="190"
+                        fill="var(--gc-signal)"
+                      />
+                      <circle cx="0" cy="34" r="7" fill="var(--gc-signal)" />
+                    </g>
+                    <circle
+                      cx="200"
+                      cy="200"
+                      r="20"
+                      fill="url(#steel)"
+                      stroke="var(--gc-steel-dark)"
+                      stroke-width="2"
+                    />
+                    <circle
+                      cx="200"
+                      cy="200"
+                      r="7"
+                      fill="var(--gc-steel-dark)"
+                    />
+                  </svg>
+                </div>
               </div>
-              <span class="status-pill">On track</span>
-            </div>
-            <div class="readiness-score">
-              <div class="score-ring">
-                <div><strong>86</strong><small>/ 100</small></div>
+
+              <div class="gc-side">
+                <div class="gc-digital" id="digital" aria-hidden="true">
+                  --:--
+                </div>
+                <p class="gc-msg" id="msg"></p>
+
+                <div class="gc-controls" role="group" aria-label="Rest timer">
+                  <button data-rest="30">30s</button>
+                  <button data-rest="60">60s</button>
+                  <button data-rest="90">90s</button>
+                  <button data-rest="120">2min</button>
+                  <button class="stop" id="stopBtn" hidden>Stop</button>
+                </div>
+                <div class="gc-sets">Sets today: <b id="sets">0</b></div>
               </div>
-              <div class="score-copy">
-                <strong>Ready to move</strong>
-                <p>
-                  Your recovery looks solid. A moderate-to-intense session could
-                  fit well today.
-                </p>
-              </div>
-            </div>
-            <div class="readiness-divider"></div>
-            <div class="readiness-footer">
-              <span>RECOVERY STATUS</span><strong><i></i> Good recovery</strong>
             </div>
           </article>
         </section>
@@ -253,40 +446,6 @@
               <div class="water-track"><span></span></div>
               <small class="metric-foot">70% of your daily goal</small>
             </article>
-          </div>
-
-          <!-- BMR Card -->
-          <div class="metric-card">
-            <div class="metric-header">
-              <span class="metric-label">Basal Metabolic Rate</span>
-              <span class="metric-icon">🔥</span>
-            </div>
-
-            <div class="metric-value">
-              <span id="bmrValue">--</span>
-              <small>kcal/day</small>
-            </div>
-
-            <p class="metric-foot" id="bmrFoot">
-              Daily calories burned at rest
-            </p>
-          </div>
-
-          <!-- BFP Card -->
-          <div class="metric-card">
-            <div class="metric-header">
-              <span class="metric-label">Body Fat Percentage</span>
-              <span class="metric-icon">⚖️</span>
-            </div>
-
-            <div class="metric-value">
-              <span id="bfpValue">--</span>
-              <small>%</small>
-            </div>
-
-            <p class="metric-foot" id="bfpFoot">
-              Your estimated body fat percentage
-            </p>
           </div>
         </section>
 

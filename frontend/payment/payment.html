@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Cashfree Payment</title>
+
+    <link rel="stylesheet" href="./payment.css" />
+
+    <!-- Cashfree SDK -->
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js" defer></script>
+
+    <!-- Axios -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script src="./payment.js" defer></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Cashfree Payment</h2>
+
+      <form id="paymentForm">
+        <h3>Payable Amount: ₹500</h3>
+
+        <input
+          type="text"
+          id="phone"
+          placeholder="Enter Phone Number"
+          required
+        />
+
+        <button type="submit">Pay Now</button>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <script src="../config/api.js"></script>
+  </body>
+</html>

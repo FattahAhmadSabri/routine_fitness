@@ -88,6 +88,8 @@ loginForm.addEventListener("submit", async (e) => {
   }
 });
 
+
+
 // Forgot Password
 document.getElementById("forgotPassword").addEventListener("click", (e) => {
   e.preventDefault();

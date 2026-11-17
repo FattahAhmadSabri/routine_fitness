@@ -2,8 +2,10 @@ const { Cashfree, CFEnvironment } = require("cashfree-pg");
 const { User, Payment } = require("../model/index");
 const sequelize = require("../utils/dbConfig");
 const PREMIUM_AMOUNT = 500;
+// const { Cashfree } = require("cashfree-pg");
+
 const cashfree = new Cashfree(
-  CFEnvironment.SANDBOX,
+  Cashfree.SANDBOX,
   process.env.CASHFREE_CLIENT_ID,
   process.env.CASHFREE_CLIENT_SECRET,
 );
@@ -29,8 +31,8 @@ const createOrder = async (
 
       order_meta: {
         return_url:
-          "http://localhost:5500/frontend/payments/payment-success.html?order_id={order_id}",
-        notify_url: "http://localhost:4000/api/payment/webhook",
+          "http://localhost:5500/frontend/payment/payment-success.html?order_id={order_id}",
+        notify_url: "http://localhost:5000/api/payment/webhook",
         payment_methods: "cc,dc,upi",
       },
 
@@ -42,10 +44,17 @@ const createOrder = async (
       orderId,
       userId: customerId,
       amount: PREMIUM_AMOUNT,
-      status: "Pending",
+      status: "pending",
     });
     return response.data;
   } catch (error) {
+    console.error("Cashfree API Error:", {
+      message: error.message,
+      status: error.response?.status,
+      response: error.response?.data,
+      code: error.code,
+      stack: error.stack,
+    });
     throw new Error(
       error.response?.data?.message || "Failed to create Cashfree order.",
     );
@@ -59,48 +68,52 @@ const getOrderStatus = async (orderId) => {
     const response = await cashfree.PGOrderFetchPayments(orderId);
     const payments = response.data;
 
-    let orderStatus;
-
     const successfulPayment = payments.find(
       (payment) => payment.payment_status === "SUCCESS",
     );
 
-    if (successfulPayment) {
-      orderStatus = "Success";
+    let orderStatus;
 
+    if (successfulPayment) {
       const paymentRecord = await Payment.findOne({
         where: { orderId },
         transaction,
       });
 
-      if (paymentRecord) {
-        await Payment.update(
-          {
-            status: "Success",
-            paymentId: successfulPayment.cf_payment_id,
-          },
-          {
-            where: { orderId },
-            transaction,
-          },
-        );
-
-        await User.update(
-          { isPremium: true },
-          {
-            where: {
-              id: paymentRecord.userId,
-            },
-            transaction,
-          },
-        );
+      if (!paymentRecord) {
+        throw new Error("Payment record not found.");
       }
+
+      await Payment.update(
+        {
+          status: "success",
+          paymentId: successfulPayment.cf_payment_id,
+        },
+        {
+          where: { orderId },
+          transaction,
+        },
+      );
+
+      const [updatedRows] = await User.update(
+        { isPremium: true },
+        {
+          where: { id: paymentRecord.userId },
+          transaction,
+        },
+      );
+
+      if (updatedRows === 0) {
+        throw new Error("User not found. Premium activation failed.");
+      }
+
+      orderStatus = "success";
     } else if (
       payments.some((payment) => payment.payment_status === "PENDING")
     ) {
-      orderStatus = "Pending";
+      orderStatus = "pending";
     } else {
-      orderStatus = "Failure";
+      orderStatus = "failure";
     }
 
     await transaction.commit();
@@ -111,6 +124,8 @@ const getOrderStatus = async (orderId) => {
     };
   } catch (error) {
     await transaction.rollback();
+
+    console.error("Transaction rolled back:", error.message);
 
     throw error;
   }

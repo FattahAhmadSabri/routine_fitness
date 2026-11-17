@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Routine – Gym Clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page: #e9e7e2; --text: #1c1c1e;
+    --plate: #c4202b; --plate-dark: #8f141d;
+    --chalk: #f5f3ee; --steel: #9aa0a6; --steel-dark: #4b5056;
+    --signal: #ffc400; --btn: #1c1c1e; --btn-text: #f5f3ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --page: #1b1c1e; --text: #f1efe9; --btn: #f1efe9; --btn-text: #1b1c1e; }
+  }
+  :root[data-theme="dark"] { --page: #1b1c1e; --text: #f1efe9; --btn: #f1efe9; --btn-text: #1b1c1e; }
+
+  * { box-sizing: border-box; }
+  html, body { min-height: 100%; margin: 0; }
+  body {
+    background: var(--page); color: var(--text);
+    font-family: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+    display: grid; place-items: center; padding: 24px;
+  }
+  .gym-clock { --size: min(86vw, 420px); width: var(--size); text-align: center; }
+  .plate-wrap { transform-origin: 50% 50%; }
+  .plate-wrap.thud { animation: thud .35s ease-out; }
+  .plate-wrap.done { animation: pump .5s ease-in-out 6; }
+  @keyframes thud { 0% { transform: scale(1.025); } 100% { transform: scale(1); } }
+  @keyframes pump { 50% { transform: scale(1.05); } }
+  .gym-clock svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 14px 18px rgba(0,0,0,.3)); }
+  .num { font-family: inherit; font-weight: 800; font-size: 38px; fill: var(--chalk); text-anchor: middle; dominant-baseline: central; }
+  .rim { font-family: inherit; font-weight: 700; font-size: 10px; letter-spacing: 2px; fill: rgba(255,255,255,.55); }
+  .name { font-family: inherit; font-weight: 800; font-size: 30px; letter-spacing: 7px; fill: var(--chalk); text-anchor: middle; dominant-baseline: central; }
+  .brand { font-family: inherit; font-weight: 800; font-size: 15px; letter-spacing: 3px; fill: rgba(255,255,255,.8); text-anchor: middle; }
+
+  .digital { margin-top: 18px; font-weight: 800; font-size: 2.4rem; letter-spacing: .06em; font-variant-numeric: tabular-nums; line-height: 1; }
+  .digital.resting { color: var(--plate); }
+  .msg { margin: 6px 0 0; font-weight: 600; font-size: 1.15rem; opacity: .75; }
+
+  .ecg { display: block; width: 100%; height: 34px; margin: 12px 0 4px; overflow: hidden; }
+  .ecg path { fill: none; stroke: var(--plate); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .ecg .scroll { animation: ecg 1.6s linear infinite; }
+  @keyframes ecg { to { transform: translateX(-120px); } }
+
+  .controls { display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+  .controls button {
+    font: 800 1.1rem "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+    letter-spacing: .06em; padding: 10px 16px; min-width: 64px;
+    background: var(--btn); color: var(--btn-text);
+    border: 0; border-radius: 4px; cursor: pointer;
+    box-shadow: 0 4px 0 var(--steel-dark); transition: transform .08s, box-shadow .08s;
+  }
+  .controls button:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--steel-dark); }
+  .controls button.stop { background: var(--plate); color: #fff; }
+  .controls button:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+  .sets { margin-top: 18px; font-weight: 700; font-size: 1.05rem; letter-spacing: .04em; }
+  .sets b { color: var(--plate); font-size: 1.5rem; }
+  @media (prefers-reduced-motion: reduce) { .ecg .scroll, .plate-wrap { animation: none !important; } }
+</style>
+</head>
+<body>
+<div class="gym-clock" id="gymClock">
+  <div class="plate-wrap" id="plateWrap">
+  <svg viewBox="0 0 400 400" role="img" aria-label="Routine analog clock">
+    <defs>
+      <radialGradient id="face" cx="50%" cy="40%" r="70%">
+        <stop offset="0" stop-color="#d42a35"/><stop offset="1" stop-color="#a81822"/>
+      </radialGradient>
+      <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#d5d9dd"/><stop offset="1" stop-color="#6b7178"/>
+      </linearGradient>
+      <path id="rimPath" d="M200,200 m-179,0 a179,179 0 1,1 358,0 a179,179 0 1,1 -358,0"/>
+    </defs>
+
+    <circle cx="200" cy="200" r="196" fill="var(--plate-dark)"/>
+    <!-- knurled grip edge -->
+    <circle cx="200" cy="200" r="191" fill="none" stroke="rgba(0,0,0,.45)" stroke-width="6" stroke-dasharray="2 4"/>
+    <circle cx="200" cy="200" r="186" fill="var(--plate)"/>
+    <circle cx="200" cy="200" r="172" fill="url(#face)"/>
+    <circle cx="200" cy="200" r="172" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="2"/>
+
+    <!-- stamped rim text -->
+    <text class="rim"><textPath href="#rimPath" startOffset="0">20 KG • 44 LB • NO EXCUSES • 20 KG • 44 LB • NO EXCUSES • 20 KG • 44 LB • NO EXCUSES •</textPath></text>
+
+    <!-- rest-timer ring -->
+    <circle id="ring" cx="200" cy="200" r="181" fill="none" stroke="var(--signal)" stroke-width="5"
+            stroke-linecap="round" transform="rotate(-90 200 200)" stroke-dasharray="1137.3" stroke-dashoffset="1137.3" opacity="0"/>
+
+    <g id="ticks"></g>
+    <g id="nums"></g>
+    <text class="name" x="200" y="150">ROUTINE</text>
+    <text class="brand" x="200" y="262">LIFT • EAT • REPEAT</text>
+
+    <g id="hHand">
+      <rect x="-5" y="-92" width="10" height="112" rx="3" fill="var(--chalk)"/>
+      <rect x="-12" y="-98" width="24" height="9" rx="2" fill="var(--chalk)"/>
+      <rect x="-9" y="-108" width="18" height="8" rx="2" fill="var(--chalk)"/>
+    </g>
+    <g id="mHand">
+      <rect x="-3.5" y="-138" width="7" height="158" rx="3" fill="var(--chalk)"/>
+      <rect x="-9" y="-144" width="18" height="8" rx="2" fill="var(--chalk)"/>
+    </g>
+    <g id="sHand">
+      <rect x="-1.5" y="-150" width="3" height="190" fill="var(--signal)"/>
+      <circle cx="0" cy="34" r="7" fill="var(--signal)"/>
+    </g>
+    <circle cx="200" cy="200" r="20" fill="url(#steel)" stroke="var(--steel-dark)" stroke-width="2"/>
+    <circle cx="200" cy="200" r="7" fill="var(--steel-dark)"/>
+  </svg>
+  </div>
+
+  <div class="digital" id="digital" aria-hidden="true">--:--</div>
+  <p class="msg" id="msg"></p>
+
+  <svg class="ecg" viewBox="0 0 240 34" preserveAspectRatio="none" aria-hidden="true">
+    <g class="scroll"><path d="M0 18 H20 L26 18 L31 6 L37 30 L43 18 H60 L66 18 L71 6 L77 30 L83 18 H120 L126 18 L131 6 L137 30 L143 18 H180 L186 18 L191 6 L197 30 L203 18 H240 L246 18 L251 6 L257 30 L263 18 H300 L306 18 L311 6 L317 30 L323 18 H360"/></g>
+  </svg>
+
+  <div class="controls" role="group" aria-label="Rest timer">
+    <button data-rest="30">30s</button>
+    <button data-rest="60">60s</button>
+    <button data-rest="90">90s</button>
+    <button data-rest="120">2min</button>
+    <button class="stop" id="stopBtn" hidden>Stop</button>
+  </div>
+  <div class="sets">Sets today: <b id="sets">0</b></div>
+</div>
+
+<script>
+(function () {
+  var NS = "http://www.w3.org/2000/svg", C = 200, CIRC = 1137.3;
+  var svg = document.querySelector("#gymClock svg");
+  var ticks = svg.querySelector("#ticks"), nums = svg.querySelector("#nums");
+  function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; }
+
+  for (var i = 0; i < 60; i++) {
+    var big = i % 5 === 0;
+    el("line", { x1: C, y1: C - 160, x2: C, y2: C - (big ? 142 : 151), stroke: "var(--chalk)",
+      "stroke-width": big ? 4 : 1.5, "stroke-linecap": "round", opacity: big ? 1 : .6,
+      transform: "rotate(" + i * 6 + " " + C + " " + C + ")" }, ticks);
+  }
+  for (var h = 1; h <= 12; h++) {
+    var a = h * Math.PI / 6;
+    el("text", { "class": "num", x: C + Math.sin(a) * 113, y: C - Math.cos(a) * 113 }, nums).textContent = h;
+  }
+
+  var hH = svg.querySelector("#hHand"), mH = svg.querySelector("#mHand"), sH = svg.querySelector("#sHand");
+  var ring = svg.querySelector("#ring");
+  var digital = document.getElementById("digital"), msg = document.getElementById("msg");
+  var wrap = document.getElementById("plateWrap"), stopBtn = document.getElementById("stopBtn");
+  var setsEl = document.getElementById("sets");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var lastSec = -1, rest = null;
+
+  function place(g, d) { g.setAttribute("transform", "translate(" + C + " " + C + ") rotate(" + d + ")"); }
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+  function message(hr) {
+    if (hr < 5) return "Late-night grind. Respect.";
+    if (hr < 9) return "Morning session. Go get it.";
+    if (hr < 12) return "Prime time. Add a plate.";
+    if (hr < 15) return "Lunch lift. Eat, then press.";
+    if (hr < 19) return "Peak hours. Own the floor.";
+    return "Last set of the day. Finish strong.";
+  }
+
+  // sets counter (per day, remembered in this browser)
+  function dayKey() { var d = new Date(); return "gymclock-sets-" + d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate(); }
+  var sets = 0;
+  try { sets = parseInt(localStorage.getItem(dayKey()), 10) || 0; } catch (e) {}
+  setsEl.textContent = sets;
+
+  function beep() {
+    try {
+      var ac = new (window.AudioContext || window.webkitAudioContext)();
+      [0, .25, .5].forEach(function (t) {
+        var o = ac.createOscillator(), g = ac.createGain();
+        o.type = "square"; o.frequency.value = 880;
+        g.gain.setValueAtTime(.12, ac.currentTime + t);
+        g.gain.exponentialRampToValueAtTime(.001, ac.currentTime + t + .18);
+        o.connect(g); g.connect(ac.destination);
+        o.start(ac.currentTime + t); o.stop(ac.currentTime + t + .2);
+      });
+    } catch (e) {}
+  }
+
+  function startRest(sec) {
+    rest = { end: Date.now() + sec * 1000, total: sec * 1000 };
+    ring.setAttribute("opacity", "1");
+    stopBtn.hidden = false;
+    wrap.classList.remove("done");
+  }
+  function stopRest(finished) {
+    rest = null;
+    ring.setAttribute("opacity", "0");
+    stopBtn.hidden = true;
+    digital.classList.remove("resting");
+    lastSec = -1;
+    if (finished) { wrap.classList.add("done"); beep(); setTimeout(function () { wrap.classList.remove("done"); }, 3200); }
+  }
+
+  document.querySelectorAll("[data-rest]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      startRest(parseInt(b.getAttribute("data-rest"), 10));
+      sets++; setsEl.textContent = sets;
+      try { localStorage.setItem(dayKey(), sets); } catch (e) {}
+    });
+  });
+  stopBtn.addEventListener("click", function () { stopRest(false); });
+
+  function tick() {
+    var d = new Date(), s = d.getSeconds() + (reduce ? 0 : d.getMilliseconds() / 1000);
+    var m = d.getMinutes() + s / 60, h = (d.getHours() % 12) + m / 60;
+    place(sH, s * 6); place(mH, m * 6); place(hH, h * 30);
+
+    if (rest) {
+      var left = rest.end - Date.now();
+      if (left <= 0) stopRest(true);
+      else {
+        ring.setAttribute("stroke-dashoffset", CIRC * (1 - left / rest.total));
+        var secs = Math.ceil(left / 1000);
+        digital.textContent = "REST " + Math.floor(secs / 60) + ":" + pad(secs % 60);
+        digital.classList.add("resting");
+        msg.textContent = secs <= 5 ? "Chalk up. Next set." : "Breathe. Recover.";
+      }
+    }
+
+    if (d.getSeconds() !== lastSec) {
+      lastSec = d.getSeconds();
+      var h12 = d.getHours() % 12 || 12, ap = d.getHours() < 12 ? "AM" : "PM";
+      svg.setAttribute("aria-label", "Analog clock, " + h12 + ":" + pad(d.getMinutes()) + " " + ap);
+      if (!rest) {
+        digital.textContent = h12 + ":" + pad(d.getMinutes()) + ":" + pad(lastSec) + " " + ap;
+        msg.textContent = message(d.getHours());
+      }
+      if (lastSec === 0 && !reduce && !wrap.classList.contains("done")) {
+        wrap.classList.remove("thud"); void wrap.offsetWidth; wrap.classList.add("thud");
+      }
+    }
+    reduce ? setTimeout(tick, 250) : requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+</body>
+</html>
