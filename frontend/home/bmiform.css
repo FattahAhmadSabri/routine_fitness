@@ -1,138 +1,404 @@
-.bmi-form-card {
-  max-width: 520px;
-  padding: 28px;
-  background: #fff;
-  border: 1px solid #e8ebe5;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(30, 50, 30, 0.05);
-  font-family: 'DM Sans', sans-serif;
+/* ==============================
+   GLOBAL STYLES
+================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.form-heading {
-  display: flex;
-  justify-content: space-between;
+body {
+  min-height: 100vh;
+  background: #f4f6f1;
+  color: #26352b;
+  font-family: "DM Sans", sans-serif;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 1150px;
+  margin: auto;
+  padding: 35px 25px 60px;
+}
+
+/* ==============================
+   BACK BUTTON
+================================= */
+
+.back-link {
+  display: inline-flex;
   align-items: center;
-  margin-bottom: 28px;
+  gap: 9px;
+  margin-bottom: 35px;
+  color: #657568;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
-.form-eyebrow {
+.back-link:hover {
+  color: #344f36;
+}
+
+.back-link span {
+  font-size: 20px;
+}
+
+/* ==============================
+   MAIN LAYOUT
+================================= */
+
+.form-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: 65px;
+}
+
+/* ==============================
+   LEFT INTRO SECTION
+================================= */
+
+.form-intro {
+  padding: 20px 0;
+}
+
+.eyebrow {
   color: #789477;
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+  font-weight: 800;
+  letter-spacing: 2px;
 }
 
-.form-heading h2 {
-  margin: 8px 0;
-  color: #26352b;
-  font-family: 'Manrope', sans-serif;
-  font-size: 21px;
+.form-intro h1 {
+  max-width: 470px;
+  margin: 22px 0;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -2px;
 }
 
-.form-heading p {
-  margin: 0;
-  color: #89918a;
-  font-size: 13px;
+.form-intro h1 span {
+  color: #789477;
 }
 
-.form-icon {
-  width: 48px;
-  height: 48px;
+.form-intro > p {
+  max-width: 430px;
+  color: #849087;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.intro-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 40px;
+}
+
+.intro-stats > div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.stat-icon {
   display: grid;
   place-items: center;
-  background: #eff5ed;
-  color: #628365;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
   border-radius: 14px;
-  font-size: 23px;
+  background: #e6eee2;
+  color: #557957;
+  font-size: 20px;
 }
 
+.intro-stats strong,
+.intro-stats small {
+  display: block;
+}
+
+.intro-stats strong {
+  margin-bottom: 5px;
+  color: #344238;
+  font-size: 14px;
+}
+
+.intro-stats small {
+  color: #929b92;
+  font-size: 12px;
+}
+
+/* ==============================
+   FORM CARD
+================================= */
+
+.form-card {
+  width: 100%;
+  padding: 35px;
+  background: #ffffff;
+  border: 1px solid #e8ebe5;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(36, 55, 38, 0.07);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.card-eyebrow {
+  color: #789477;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.card-top h2 {
+  margin: 10px 0 7px;
+  color: #26352b;
+  font-family: "Manrope", sans-serif;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.card-top p {
+  color: #929b92;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.card-icon {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: #eff5ed;
+  color: #557957;
+  font-size: 24px;
+}
+
+/* ==============================
+   FORM FIELDS
+================================= */
+
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 26px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 9px;
-  color: #354239;
+  margin-bottom: 11px;
+  color: #344238;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .height-inputs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 13px;
 }
 
-.height-inputs .input-wrapper {
-  min-width: 0;
-}
-.input-wrapper:focus-within {
-  border-color: #789477;
-  box-shadow: 0 0 0 3px rgba(120, 148, 119, 0.12);
-}
-
-.input-wrapper input {
+.field-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
-  height: 50px;
+  min-width: 0;
+  height: 60px;
+  padding: 0 15px;
+  border: 1px solid #e5eae3;
+  border-radius: 13px;
+  background: #fbfcfa;
+  transition: all 0.2s ease;
+}
+
+.field-box:focus-within {
+  border-color: #789477;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(120, 148, 119, 0.1);
+}
+
+.field-icon {
+  color: #8a9b89;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+.field-box input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
   border: none;
   outline: none;
   background: transparent;
   color: #26352b;
-  font-size: 15px;
-}
-
-.input-wrapper span {
-  color: #929b92;
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-.bmi-preview {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  margin: 25px 0;
-  padding: 20px;
-  background: #f3f7f1;
-  border-radius: 14px;
-}
-
-.bmi-preview span {
-  color: #7c887c;
-  font-size: 12px;
-}
-
-.bmi-preview strong {
-  color: #344f36;
-  font-family: 'Manrope', sans-serif;
-  font-size: 36px;
-}
-
-.bmi-preview small {
-  color: #68866a;
+  font-family: inherit;
+  font-size: 16px;
   font-weight: 600;
 }
+
+.field-box input::placeholder {
+  color: #b0b8af;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.field-box input::-webkit-inner-spin-button,
+.field-box input::-webkit-outer-spin-button {
+  margin: 0;
+}
+
+.unit {
+  flex-shrink: 0;
+  color: #8b978c;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.field-hint {
+  display: block;
+  margin-top: 9px;
+  color: #9aa39a;
+  font-size: 11px;
+}
+
+/* ==============================
+   SAVE BUTTON
+================================= */
 
 .save-bmi-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  padding: 15px;
+  min-height: 56px;
+  padding: 15px 20px;
   border: none;
-  border-radius: 12px;
+  border-radius: 13px;
   background: #344f36;
-  color: white;
+  color: #ffffff;
+  font-family: inherit;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.25s ease;
 }
 
 .save-bmi-btn:hover {
   background: #263d29;
-  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(52, 79, 54, 0.18);
+  transform: translateY(-2px);
 }
 
-.save-bmi-btn span {
-  margin-left: 8px;
+.save-bmi-btn:active {
+  transform: translateY(0);
+}
+
+.save-bmi-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.button-arrow {
+  font-size: 21px;
+}
+
+/* ==============================
+   PRIVACY NOTE
+================================= */
+
+.privacy-note {
+  margin-top: 18px;
+  color: #98a098;
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+================================= */
+
+@media (max-width: 900px) {
+  .form-layout {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .form-intro {
+    padding: 0;
+  }
+
+  .form-intro h1 {
+    max-width: 550px;
+    font-size: 40px;
+  }
+
+  .intro-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 25px;
+  }
+}
+
+@media (max-width: 550px) {
+  .page-container {
+    padding: 22px 15px 40px;
+  }
+
+  .back-link {
+    margin-bottom: 25px;
+  }
+
+  .form-intro h1 {
+    font-size: 34px;
+  }
+
+  .form-intro > p {
+    font-size: 13px;
+  }
+
+  .form-card {
+    padding: 23px 17px;
+    border-radius: 18px;
+  }
+
+  .card-top h2 {
+    font-size: 20px;
+  }
+
+  .height-inputs {
+    gap: 9px;
+  }
+
+  .field-box {
+    padding: 0 10px;
+    gap: 7px;
+  }
+
+  .unit {
+    font-size: 9px;
+  }
+
+  .intro-stats {
+    flex-direction: column;
+  }
 }

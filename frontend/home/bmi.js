@@ -47,6 +47,15 @@ document.querySelectorAll(".main-nav a").forEach((link) => {
   });
 });
 
+function logoutUser(event) {
+  event.preventDefault();
+
+  
+  localStorage.removeItem("token");
+  localStorage.removeItem("user")
+  window.location.href = "../loginAuth/index.html";
+}
+
 // ==========================================
 // DYNAMIC DATE AND GREETING
 // ==========================================

@@ -1,8 +1,17 @@
 const { Cashfree, CFEnvironment } = require("cashfree-pg");
 const { User, Payment } = require("../model/index");
 const sequelize = require("../utils/dbConfig");
+const axios = require("axios"); // Required for the firewall fix
+
+// ==========================================
+// FIREWALL FIX:
+// Force the SDK's internal Axios to use a real browser User-Agent.
+// This prevents Cashfree's CloudFront firewall from blocking the request with a 403 error.
+// ==========================================
+axios.defaults.headers.common["User-Agent"] =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+
 const PREMIUM_AMOUNT = 500;
-// const { Cashfree } = require("cashfree-pg");
 
 const cashfree = new Cashfree(
   Cashfree.SANDBOX,
@@ -25,8 +34,9 @@ const createOrder = async (
       order_currency: orderCurrency,
 
       customer_details: {
-        customer_id: customerId,
-        customer_phone: customerPhone,
+        // Cashfree strictly requires these to be strings, not numbers
+        customer_id: customerId.toString(),
+        customer_phone: customerPhone.toString(),
       },
 
       order_meta: {
@@ -38,14 +48,18 @@ const createOrder = async (
 
       order_expiry_time: expiryDate.toISOString(),
     };
-    console.log(request);
+
+    console.log("Sending request to Cashfree:", request);
+
     const response = await cashfree.PGCreateOrder(request);
+
     await Payment.create({
       orderId,
       userId: customerId,
       amount: PREMIUM_AMOUNT,
       status: "pending",
     });
+
     return response.data;
   } catch (error) {
     console.error("Cashfree API Error:", {
@@ -124,10 +138,9 @@ const getOrderStatus = async (orderId) => {
     };
   } catch (error) {
     await transaction.rollback();
-
     console.error("Transaction rolled back:", error.message);
-
     throw error;
   }
 };
+
 module.exports = { createOrder, getOrderStatus };

@@ -1,66 +1,59 @@
+
 const bmiForm = document.getElementById("bmiForm");
 
-const heightInput = document.getElementById("height");
+const heightFeet = document.getElementById("heightFeet");
+const heightInches = document.getElementById("heightInches");
 const weightInput = document.getElementById("weight");
 
-const bmiPreview = document.getElementById("bmiPreview");
-const bmiCategory = document.getElementById("bmiCategory");
+const saveBmiBtn = document.getElementById("saveBmiBtn");
 
-function calculateBMI() {
-  const height = Number(heightInput.value);
-  const weight = Number(weightInput.value);
-
-  if (height <= 0 || weight <= 0) {
-    bmiPreview.textContent = "--";
-    bmiCategory.textContent = "Enter valid measurements";
-    return;
-  }
-
-  const bmi = weight / (height * height);
-
-  bmiPreview.textContent = bmi.toFixed(1);
-
-  if (bmi < 18.5) {
-    bmiCategory.textContent = "Underweight";
-  } else if (bmi < 25) {
-    bmiCategory.textContent = "Normal weight";
-  } else if (bmi < 30) {
-    bmiCategory.textContent = "Overweight";
-  } else {
-    bmiCategory.textContent = "Obesity range";
-  }
+// Convert feet and inches into metres
+function convertHeightToMeters(feet, inches) {
+  const totalInches = (feet * 12) + inches;
+  return Number((totalInches * 0.0254).toFixed(3));
 }
-
-heightInput.addEventListener("input", calculateBMI);
-weightInput.addEventListener("input", calculateBMI);
 
 bmiForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const payload = {
-    height: Number(heightInput.value),
-    weight: Number(weightInput.value)
-  };
+  const feet = Number(heightFeet.value);
+  const inches = Number(heightInches.value);
+  const weight = Number(weightInput.value);
 
+  // Validate inputs
   if (
-    !Number.isFinite(payload.height) ||
-    !Number.isFinite(payload.weight) ||
-    payload.height < 0.5 ||
-    payload.height > 2.5 ||
-    payload.weight < 10 ||
-    payload.weight > 500
+    !Number.isInteger(feet) ||
+    !Number.isInteger(inches) ||
+    feet < 1 ||
+    feet > 8 ||
+    inches < 0 ||
+    inches > 11 ||
+    !Number.isFinite(weight) ||
+    weight < 10 ||
+    weight > 500
   ) {
     alert("Please enter valid height and weight.");
     return;
   }
 
+  // Convert height into metres
+  const height = convertHeightToMeters(feet, inches);
+
+  // API payload
+  const payload = {
+    height,
+    weight
+  };
+
   try {
+    saveBmiBtn.disabled = true;
+    saveBmiBtn.querySelector("span").textContent = "Saving...";
+
     const response = await api.post("/bmi/create", payload);
 
     alert(response.data.message || "Measurements saved successfully!");
 
     bmiForm.reset();
-    calculateBMI();
 
   } catch (error) {
     console.error("BMI submission error:", error);
@@ -69,7 +62,9 @@ bmiForm.addEventListener("submit", async (event) => {
       error.response?.data?.message ||
       "Unable to save measurements. Please try again."
     );
+
+  } finally {
+    saveBmiBtn.disabled = false;
+    saveBmiBtn.querySelector("span").textContent = "Save measurements";
   }
 });
-
-calculateBMI();
