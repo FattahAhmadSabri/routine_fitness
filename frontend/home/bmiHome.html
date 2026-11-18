@@ -21,7 +21,7 @@
     <div class="app-shell">
       <aside class="sidebar" id="sidebar">
         <a class="brand" href="#" aria-label="Forma home">
-          <span class="brand-mark">F</span
+          <span class="brand-mark">R</span
           ><span>ROUTINE<span class="brand-dot">.</span></span>
         </a>
 
@@ -47,7 +47,11 @@
             •••
           </button>
         </div>
-
+        <button class="ai-sidebar-btn" onclick="openHealthAI()">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>Routine AI</span>
+          <span class="ai-badge">AI</span>
+        </button>
         <p class="nav-label">WORKSPACE</p>
         <nav class="main-nav" aria-label="Main navigation">
           <a class="nav-item active" href="#overview"
@@ -71,11 +75,6 @@
         </nav>
 
         <div class="sidebar-bottom">
-          <button class="ai-sidebar-btn" onclick="openHealthAI()">
-            <i class="fa-solid fa-sparkles"></i>
-            <span>Routine AI</span>
-            <span class="ai-badge">AI</span>
-          </button>
           <div class="coach-card">
             <span class="coach-spark">✳</span>
             <strong>Small steps.<br />Big changes.</strong>
@@ -168,26 +167,6 @@
 
         <section class="hero-grid">
           <article class="hero-card">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-              <span class="hero-tag"
-                ><span></span> YOUR PERSONAL HEALTH PORTFOLIO</span
-              >
-              <h2>Progress is<br /><em>personal.</em></h2>
-              <p>
-                Not chasing perfect. Just getting better, one day at a time.
-              </p>
-              <a href="#journal" class="hero-link"
-                >Explore your journey <span>↗</span></a
-              >
-            </div>
-            <div class="hero-note">
-              <span>01</span>
-              <div>
-                <strong>Consistency over intensity</strong
-                ><small>Your best investment is showing up.</small>
-              </div>
-            </div>
             <!-- BMR Card -->
             <div class="metric-card">
               <div class="metric-header">
@@ -527,11 +506,11 @@
               <span class="tiny-more">•••</span>
             </div>
             <div class="workout-feature">
-              <img
+              <!-- <img
                 src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=500&q=85"
                 alt="Modern gym interior"
-              />
-              <div class="workout-image-overlay"></div>
+              /> -->
+              <!-- <div class="workout-image-overlay"></div> -->
               <span class="workout-label">STRENGTH · DAY 04</span>
               <div class="workout-image-title">
                 <strong>Upper body<br />power</strong><span>↗</span>
