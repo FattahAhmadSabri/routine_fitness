@@ -56,6 +56,10 @@ function logoutUser(event) {
   window.location.href = "../loginAuth/index.html";
 }
 
+function openHealthAI() {
+  window.location.href = "../aiHealthAssistance/aiHealth.html";
+}
+
 // ==========================================
 // DYNAMIC DATE AND GREETING
 // ==========================================

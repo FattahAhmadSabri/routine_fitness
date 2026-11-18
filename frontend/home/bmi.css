@@ -1677,3 +1677,41 @@ button {
     animation-duration: 0.01ms !important;
   }
 }
+
+
+
+.ai-sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid #D9EBCB;
+  border-radius: 12px;
+  background: linear-gradient(110deg, #064E3B, #166534);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.ai-sidebar-btn i {
+  color: #BEF264;
+  font-size: 17px;
+}
+
+.ai-sidebar-btn:hover {
+  background: #14532D;
+  transform: translateX(3px);
+}
+
+.ai-badge {
+  margin-left: auto;
+  padding: 3px 7px;
+  border-radius: 5px;
+  background: #BEF264;
+  color: #064E3B;
+  font-size: 9px;
+  font-weight: 800;
+}

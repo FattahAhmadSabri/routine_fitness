@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Routine AI | Health Assistant</title>
+    <link rel="stylesheet" href="./aiHealth.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-icon"><i class="fa-solid fa-leaf"></i></div>
+          <div>
+            <h2>Routine AI</h2>
+            <small>Your personal health companion</small>
+          </div>
+        </div>
+
+        <div class="status"><span></span> AI Assistant</div>
+      </header>
+
+      <main class="chat-container">
+        <section class="welcome" id="welcome">
+          <div class="welcome-icon">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+
+          <h1>How can I help you today?</h1>
+          <p>
+            Ask me anything about your health, nutrition, fitness or wellness.
+          </p>
+
+          <div class="suggestions">
+            <button
+              onclick="
+                sendSuggestion('How much protein should I consume daily?')
+              "
+            >
+              <i class="fa-solid fa-drumstick-bite"></i>
+              Daily protein intake
+            </button>
+
+            <button
+              onclick="sendSuggestion('How can I improve my sleep quality?')"
+            >
+              <i class="fa-solid fa-moon"></i>
+              Improve my sleep
+            </button>
+
+            <button
+              onclick="sendSuggestion('Suggest a healthy daily diet plan.')"
+            >
+              <i class="fa-solid fa-bowl-food"></i>
+              Healthy diet plan
+            </button>
+
+            <button onclick="sendSuggestion('How can I improve my fitness?')">
+              <i class="fa-solid fa-heart-pulse"></i>
+              Fitness guidance
+            </button>
+          </div>
+        </section>
+
+        <section class="messages" id="messages"></section>
+      </main>
+
+      <footer class="chat-footer">
+        <form id="chatForm">
+          <input
+            type="text"
+            id="userInput"
+            placeholder="Ask Routine AI anything..."
+            autocomplete="off"
+          />
+
+          <button type="submit" id="sendBtn">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+
+        <p>
+          AI can make mistakes. Consult a healthcare professional for medical
+          advice.
+        </p>
+      </footer>
+    </div>
+
+    <script src="./aiHealth.js"></script>
+  </body>
+</html>
