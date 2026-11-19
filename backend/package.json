@@ -17,5 +17,9 @@
     "pg-hstore": "^2.3.4",
     "puppeteer": "^25.17.0",
     "sequelize": "^6.37.8"
+  },
+  "allowScripts": {
+    "bcrypt@6.0.0": true,
+    "puppeteer@25.17.0": true
   }
 }
