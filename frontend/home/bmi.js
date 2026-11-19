@@ -50,9 +50,8 @@ document.querySelectorAll(".main-nav a").forEach((link) => {
 function logoutUser(event) {
   event.preventDefault();
 
-  
   localStorage.removeItem("token");
-  localStorage.removeItem("user")
+  localStorage.removeItem("user");
   window.location.href = "../loginAuth/index.html";
 }
 
@@ -597,6 +596,17 @@ document
   tick();
 })();
 
+document.addEventListener("DOMContentLoaded", () => {
+  const adminPanel = document.getElementById("adminPanel");
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (user && user.role === "admin") {
+    adminPanel.hidden = false;
+  } else {
+    adminPanel.hidden = true;
+  }
+});
 // ==========================================
 // INITIALIZE DASHBOARD
 // ==========================================

@@ -84,7 +84,7 @@ const forgotPasswordService = async (email) => {
       user.email,
       "Reset Password",
       `
-      <a href="http://localhost:5500/frontend/login/reset-password.html?id=${resetRequest.id}">
+      <a href="${process.env.FRONTEND_URL}/loginAuth/reset-password.html?id=${resetRequest.id}">
     Reset Password
 </a>
       `,
